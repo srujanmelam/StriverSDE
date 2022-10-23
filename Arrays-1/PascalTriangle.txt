@@ -1,0 +1,20 @@
+class Solution {
+    public List<List<Integer>> generate(int r) {
+        List<List<Integer>> l = new ArrayList<List<Integer>>();
+        List<Integer> c,p = null;
+        for(int i=0;i<r;i++){
+            c = new ArrayList<Integer>();
+            for(int j=0;j<=i;j++){
+                if(j == 0 || j == i){
+                    c.add(1);
+                }
+                else{
+                    c.add(p.get(j-1)+p.get(j));
+                }
+            }
+            p = c;
+            l.add(p);
+        }
+        return l;
+    }
+}
