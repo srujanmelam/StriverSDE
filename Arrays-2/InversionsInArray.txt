@@ -1,0 +1,46 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static long getInversions(long arr[], int n) {
+        // Write your code here.
+        return merge(arr,0,arr.length-1);
+    }
+        public static long merge(long[] a,int l,int h){
+        long c = 0;
+        if(l<h){
+            int m = l+(h-l)/2;
+            c+=merge(a,l,m);
+            c+=merge(a,m+1,h);
+            c+=partition(a,l,m,h);
+        }
+        return c;
+        }
+     public static long partition(long[] a,int l,int m,int h){
+        long c = 0;
+        long[] left = new long[m-l+1];
+        long[] right = new long[h-m];
+        for(int i=0;i<m-l+1;i++){
+            left[i] = a[i+l];
+        }
+        for(int i=0;i<h-m;i++){
+            right[i] = a[i+m+1];
+        }
+        int i=0,k=l,j=0;
+        while(i<left.length && j<right.length){
+            if(left[i]<=right[j]){
+                a[k++] = left[i++];
+            }
+            else{
+                a[k++] = right[j++];
+                c+=(left.length-i);
+            }
+        }
+        while(i!=left.length){
+            a[k++] = left[i++];
+        }
+        while(j!=right.length){
+            a[k++] = right[j++];
+        }
+        return c;
+     }
+}
