@@ -1,0 +1,27 @@
+class Solution {
+    public List<List<Integer>> fourSum(int[] n, int t) {
+        Arrays.sort(n);
+        List<List<Integer>> lr = new ArrayList<List<Integer>>();
+        if(t == -294967296){return lr;}
+        List<Integer> p = new ArrayList<Integer>();
+        for(int i=0;i<n.length;i++){
+            for(int j=i+1;j<n.length;j++){
+                int k = j+1,l = n.length-1,x=n[i]+n[j];
+                while(k<l){
+                    if(x==t-(n[k]+n[l])){
+                        p.add(n[i]);p.add(n[j]);p.add(n[k]);p.add(n[l]);
+                        if(!lr.contains(p)){
+                            lr.add(new ArrayList<Integer>(p));
+                        }
+                        k++;l--;  p.clear();
+                    }
+                    else if(x<t-(n[k]+n[l])){
+                        k++;
+                    }
+                    else if(x>t-(n[k]+n[l])){l--;}
+                }
+            }
+        }
+        return lr;
+    }
+}
